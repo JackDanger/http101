@@ -1,4 +1,4 @@
 source 'https://rubygems.org'
 
-require 'shotgun'
-require 'rack'
+gem 'shotgun'
+gem 'rack'

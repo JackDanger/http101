@@ -12,12 +12,16 @@ class MyApp
       env['PATH_INFO'].inspect,
       "\n",
       "With some query string parameters: ",
-      env.inspect,
+      env['QUERY_STRING'].inspect,
       "\n", # end with a line break character. It's just prettier.
     ]
 
+    # Then we put it all together:
     [status_code, headers, lines_of_body]
   end
 end
 
+# Here Rack takes over for us. It'll listen on a socket and every time a
+# request comes in it'll execute the `call` method on the instance of MyApp,
+# passing in the current HTTP request in the form of a hash.
 run MyApp.new

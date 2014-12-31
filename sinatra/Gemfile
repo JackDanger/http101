@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
 
-require 'shotgun'
-require 'sinatra'
+gem 'shotgun'
+gem 'sinatra'
+gem 'pry-byebug'
