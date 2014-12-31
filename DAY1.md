@@ -35,8 +35,19 @@ Challenges:
 if you have a blank HTTP header hash? What if you use an invalid status
 code?
 
-# The Sinatra request cycle (?)
-
-
+# Sinatra
+Challenges:
+1. Create an app that shows different content when you GET to it versus
+   POST to it.
+1. Create a form that displays in the browser and POSTs somewhere.
+   Display data on the resulting page based on what you typed into the
+form.
+1. Use `binding.pry` to stop execution during a request and inspect data
+   like 'env', 'params', etc. (hint: don't forget to `require 'pry'`
+somewhere. Use CTRL-D to exit pry.)
+1. Create separate blocks that execute for each of the following HTTP
+   verbs: HEAD, GET, POST, PUT, PATCH. (hint: you'll need to add `-d ''`
+to the end of your curl request for some of these. Also, you'll need to
+put the `head()` definition before your `get()` definition).
 
 # The Rails request cycle

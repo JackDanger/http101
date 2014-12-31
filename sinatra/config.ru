@@ -1,6 +1,12 @@
 require 'sinatra/base'
+require 'pry'
 
 class MyApp < Sinatra::Base
+
+  head '/' do
+    headers "You made a HEAD request" => "yup"
+    ''
+  end
 
   get '/' do
     "<h1>home page!</h1>"
@@ -20,7 +26,18 @@ class MyApp < Sinatra::Base
   post '/name-that-cat' do
     "<h1>All hail #{params[:kitty_name]}!</h1><img src='https://placekitten.com/g/600/400' />"
   end
-end
 
+  patch '/' do
+    'What does PATCH even do?'
+  end
+
+  put '/' do
+    'Sure, I can put that right over here.'
+  end
+
+  not_found do
+    binding.pry
+  end
+end
 
 run MyApp
