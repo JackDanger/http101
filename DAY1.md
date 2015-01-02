@@ -1,5 +1,6 @@
-
 # Listening and connecting
+
+
 Challenges:
 1. Make `nc` continue listening on a port even after you've connected to
    it and subsequently disconnected from it. (hint: you can run any
@@ -51,3 +52,52 @@ to the end of your curl request for some of these. Also, you'll need to
 put the `head()` definition before your `get()` definition).
 
 # The Rails request cycle
+
+```bash
+rails new rails_app
+cd rails_app
+rails generate controller home
+rails server
+```
+
+Add Pry to the Gemfile for debugging:
+```bash
+echo "gem 'pry-byebug', require: true" >> Gemfile
+bundle
+```
+
+Make `app/controllers/home_controller.rb` look like this:
+```ruby
+class HomeController < ApplicationController
+
+  # This line let you use `curl` without worrying about security stuff
+  skip_before_filter :verify_authenticity_token
+
+  def gerbils
+    render :text => 'Gerbils!'
+  end
+
+  def penguins
+    render :text => 'Penguins!'
+  end
+end
+```
+
+in `config/routes.rb`
+```ruby
+  get '/' => 'home#gerbils'
+  post '/' => 'home#penguins'
+```
+
+Challenges:
+1. Use `binding.pry` to inspect the environment of a Rails request
+   inside the `gerbils` or `penguins` method. What's the difference
+   between `request.env` and the old Rack `env`? Check out the `request`
+   and `response`
+1. Look inside the `request` object to find out information about the
+   client making the HTTP request. What's the user agent (i.e. browser)?
+   What's the ip address that this HTTP request is coming from (and will be
+   sent back to)?
+1. What other HTTP verbs can you get Rails to support? (hint: google
+   "http verbs" and you'll find a list with a technical description of
+   how they should be used.)
