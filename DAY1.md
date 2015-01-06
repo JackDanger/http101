@@ -1,5 +1,33 @@
 # Listening and connecting
 
+HTTP relies on a relationship between clients and servers. A server is
+something that has a resource and a client is something that wants that
+resource. For HTTP this means a server has a web page (or image or
+javascript file, etc.) and the client (typically a browser) wants to
+retrieve these files.
+
+In order for the server to be of any use it needs to make itself
+available to clients. An HTTP server does this by "listening" on a
+specific port of a computer (typically port 80 for unsecured pages, port
+443 for HTTPS) and waiting for a client to connect and make a request.
+
+In this lesson we'll explore how any Unix-like OS (Linux, Mac, BSD,
+etc.) allows programs to act as HTTP servers and clients.
+
+### Connecting
+
+First, we're going to try to connect to a computer on a specific port
+number.
+
+What just happened?
+
+The program `nc` (an abbreviation of "netcat" or "network concatenate")
+connected to the computer known as motherfuckingwebsite.com on port 80.
+Then it wrote two lines of plain text into that connection. Luckily,
+there was a web server program listening on that port that knew how to
+speak HTTP and it properly understood our request.
+
+
 
 Challenges:
 1. Make `nc` continue listening on a port even after you've connected to
@@ -16,6 +44,31 @@ sending the programs "standard output" to a file.)
 1. Connect to a port that you're listening on and send the contents of a file into that port. Try to get those file contents to display in the terminal that is listening on that port.
 
 # HTTP requests and responses
+
+### Be an HTTP client
+
+First, let's be an HTTP client. We're going to retrieve
+[http://motherfuckingwebsite.com] and display its contents to our
+screen. We're basically going to turn ourselves into a really, really
+user-unfriendly web browser. Type the following into your terminal:
+
+```bash
+nc motherfuckingwebsite.com 80
+GET / HTTP/1.1
+Host: motherfuckingwebsite.com
+
+```
+
+Hit enter a couple times at the end if nothing happens. What you see
+should be the HTML source of [http://motherfuckingwebsite.com].
+
+What you just did is all that a web browser does, though browsers also
+do the work of rendering the HTML properly on your screen. Had you
+copied the HTML that the server sent you into a file and opened it in a
+modern document editor it would render to your screen just like in a
+browser.
+
+
 Challenges:
 1. Connect to http://motherfuckingwebsite.com and save just the http headers to a file (hint: you’ll want to use either the program `split` or `head`)
 1. Connect to an HTTPS website using `openssl s_client` (hint: you may need to read `openssl s_client -h` and/or Google for a solution)
