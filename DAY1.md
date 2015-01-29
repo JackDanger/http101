@@ -7,9 +7,19 @@ javascript file, etc.) and the client (typically a browser) wants to
 retrieve these files.
 
 In order for the server to be of any use it needs to make itself
-available to clients. An HTTP server does this by "listening" on a
-specific port of a computer (typically port 80 for unsecured pages, port
-443 for HTTPS) and waiting for a client to connect and make a request.
+available to clients somehow even before any client attempts to make a
+reqeust. An HTTP server does this by "listening" on a specific port of a
+computer (typically port 80 for unsecured pages, port 443 for HTTPS) and
+waiting for a client to connect and make a request.
+
+A super long time ago (long before HTTP) the way this worked was there
+would be a computer configured such that any electrical signals on a
+port (literally a plug in the side of the computer) would be sent as
+inputs to some program or function. This is a server. The only
+difference between that archaic model and what we have today is that the
+port is more of a metaphor and your computer's network card can let you
+pick thousands of arbitrary port numbers to listen on and clients can
+pick which one they connect to.
 
 In this lesson we'll explore how any Unix-like OS (Linux, Mac, BSD,
 etc.) allows programs to act as HTTP servers and clients.
