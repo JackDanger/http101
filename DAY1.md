@@ -29,6 +29,13 @@ etc.) allows programs to act as HTTP servers and clients.
 First, we're going to try to connect to a computer on a specific port
 number.
 
+```
+nc motherfuckingwebsite.com 80
+GET / HTTP/1.1
+Host: motherfuckingwebsite.com
+
+```
+
 What just happened?
 
 The program `nc` (an abbreviation of "netcat" or "network concatenate")
