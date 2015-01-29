@@ -266,6 +266,26 @@ ridiculously simple piece of server logic (only ever send the same
 response always).
 
 
+### Be a slightly more interesting HTTP server
+
+Now suppose you want to actually return something different based on your request.
+Clone a copy of the ruby script `simple_server.rb`.
+
+In one terminal tab, run:
+`$ nc -l localhost 7000`
+
+In a second terminal tab, run:
+`$ nc -l localhost 5050 | ruby simple_server.rb | nc localhost 7000`
+
+Finally, in a third tab, run:
+`$ nc -l localhost 5000`
+
+Now, in the third tab, try typing "localhost:1234/home". You can vary the port number; it doesn't matter.
+What do you see in the first tab (the one that is listening on port 7000)?
+
+What happens if you fire up all three tabs again and type in a different string? What do you see in the first tab?
+
+
 Challenges:
 
 1. Connect to http://motherfuckingwebsite.com and save just the http headers to a file (hint: you’ll want to use either the program `split` or `head`)
