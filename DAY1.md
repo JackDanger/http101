@@ -31,12 +31,12 @@ number.
 
 Run this in one terminal window:
 ```
-nc -l localhost 5050
+$ nc -l localhost 5050
 ```
 
 And then run this in a second window:
 ```
-nc localhost 5050
+$ nc localhost 5050
 ```
 
 Type "hi" into that second window. Notice that what you type is sent
@@ -52,7 +52,7 @@ prepared in advance. CTRL-C both of your `nc` instances and type the
 following to create a new text file:
 
 ```
-cat > badjoke
+$ cat > badjoke
 Deja Moo: The feeling that you've heard this bull before.
 ```
 When you're done don't type `CTRL-C`, type `CTRL-D` instead. That's the
@@ -69,14 +69,14 @@ before.
 And in the other window make sure the file has some data in it:
 
 ```
-cat badjoke
+$ cat badjoke
 ```
 
 Yup. That's a bad joke. Now let's "concatenate" it via netcat (`nc`) over
 the network:
 
 ```
-cat badjoke | nc localhost 5050
+$ cat badjoke | nc localhost 5050
 ```
 
 Notice that vertical pipe character? That means instead of printing the
@@ -108,7 +108,7 @@ screen. We're basically going to turn ourselves into a really, really
 user-unfriendly web browser. Type the following into your terminal:
 
 ```bash
-nc motherfuckingwebsite.com 80
+$ nc motherfuckingwebsite.com 80
 GET / HTTP/1.1
 Host: motherfuckingwebsite.com
 
@@ -129,7 +129,7 @@ browser.
 Let's do that again but send some gibberish.
 
 ```
-nc motherfuckingwebsite.com 80
+$ nc motherfuckingwebsite.com 80
 GET / I DUNNO
 stuff, man
 
@@ -167,7 +167,7 @@ First, let's save the results of an HTTP request to
 file:
 
 ```
-nc motherfuckingwebsite.com 80 > http_response
+$ nc motherfuckingwebsite.com 80 > http_response
 GET / HTTP/1.1
 Host: motherfuckingwebsite.com
 
@@ -177,7 +177,7 @@ Remember to hit the enter key a bunch at the end.
 
 Let's check that that file has what we think it does:
 ```bash
-cat http_response
+$ cat http_response
 ```
 
 Should produce something like:
