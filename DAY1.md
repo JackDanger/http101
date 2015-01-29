@@ -47,6 +47,12 @@ Anything you type will keep being sent over the network from the client
 (the second window that you're typing into) to the server (the first
 window where your program is listening on the port).
 
+Now type into the _other_ window. Notice that what you type in either
+goes across the network to the other. Both clients and servers can send
+data to the other. The only difference is that the server makes itself
+available and known at all times at a specific hostname and port and the
+client can connect when it wishes.
+
 Let's try doing that again but lets send over some data that's been
 prepared in advance. CTRL-C both of your `nc` instances and type the
 following to create a new text file:
@@ -83,6 +89,22 @@ Notice that vertical pipe character? That means instead of printing the
 output of the previous command on the screen use it as if it were typed
 as the input of the next command. Basically you just avoided having to
 hand-type the joke any time you want to send it somewhere.
+
+The two instances of `nc` have (unhelpfully) exited when they noticed
+you seemed done so let's set them up again but send the joke down from
+the server this time:
+
+```
+$ cat badjoke | nc -l localhost 5050
+```
+
+```
+$ nc localhost 5050
+```
+
+BAM. As soon as you connect the client the server sends you the joke.
+It's kinda like a web server in that sense, though a super duper dumb
+one.
 
 Challenges:
 
@@ -199,7 +221,23 @@ Content-Type: text/html
 [...]
 ```
 
-Yup, golden. It's not only the 
+Yup, golden. It's not only the html you'd see if you viewed the source
+of the page but also the HTTP headers that browsers need but don't
+normally show you.
+
+Now that we have that lets make an HTTP server that sends that HTTP
+response for all requests, valid or not.
+
+```
+$ cat http_response | nc -l localhost 5050
+```
+
+What we're doing here is telling netcat to listen on a port like a
+server and to dumbly send this specific http response down for all
+requests. Because netcat is so dumb it won't even wait for you to type
+`GET / HTTP/1.1` or any of that.
+
+
 
 Challenges:
 
