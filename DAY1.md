@@ -153,10 +153,11 @@ The HTTP server (whatever program was listening on the other side) knows
 how to look at the lines you're typing and parse out good requests from
 bad. Netcat, the simple little tool that it is, when it acts as a server
 using the `-l` flag doesn't bother parsing anything - it just spits
-whatever right out onto the screen.
+whatever you send it right out onto the screen.
 
 
 Challenges:
+
 1. Connect to http://motherfuckingwebsite.com and save just the http headers to a file (hint: you’ll want to use either the program `split` or `head`)
 1. Connect to an HTTPS website using `openssl s_client` (hint: you may need to read `openssl s_client -h` and/or Google for a solution)
 1. Try the above challenges using `curl` instead of `nc`. How goddamned
@@ -166,6 +167,7 @@ Challenges:
 
 # The Rack interface
 Challenges:
+
 1. Make a server that listens on port 2000 and another that listens on
    port 3000 in the same Ruby file. Connect to them both with curl.
 1. Make a server that creates an HTTP response somehow customized to the
@@ -178,6 +180,7 @@ code?
 
 # Sinatra
 Challenges:
+
 1. Create an app that shows different content when you GET to it versus
    POST to it.
 1. Create a form that displays in the browser and POSTs somewhere.
