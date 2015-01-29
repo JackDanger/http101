@@ -156,6 +156,51 @@ using the `-l` flag doesn't bother parsing anything - it just spits
 whatever you send it right out onto the screen.
 
 
+### Be an HTTP server
+
+Now shit's gonna get real. We're going to implement a complete HTTP
+server. Sorta. You were able to hand-type the HTTP client stuff so why
+not do the same on the other end?
+
+First, let's save the results of an HTTP request to
+[http://motherfuckingwebsite.com](http://motherfuckingwebsite.com) to a
+file:
+
+```
+nc motherfuckingwebsite.com 80 > http_response
+GET / HTTP/1.1
+Host: motherfuckingwebsite.com
+
+```
+
+Remember to hit the enter key a bunch at the end.
+
+Let's check that that file has what we think it does:
+```bash
+cat http_response
+```
+
+Should produce something like:
+```
+HTTP/1.1 200 OK
+Date: Thu, 29 Jan 2015 01:58:46 GMT
+Server: Apache
+Last-Modified: Sun, 18 Jan 2015 00:04:33 GMT
+Accept-Ranges: bytes
+Content-Length: 5108
+Vary: Accept-Encoding
+Content-Type: text/html
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+[...]
+```
+
+Yup, golden. It's not only the 
+
 Challenges:
 
 1. Connect to http://motherfuckingwebsite.com and save just the http headers to a file (hint: you’ll want to use either the program `split` or `head`)
