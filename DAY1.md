@@ -237,6 +237,33 @@ server and to dumbly send this specific http response down for all
 requests. Because netcat is so dumb it won't even wait for you to type
 `GET / HTTP/1.1` or any of that.
 
+Let's use `curl` to connect to our fancy-ass web server. The `-I` flag
+says to show us the HTTP headers but not the HTML part.
+
+```
+$ curl -I http://localhost:5050/
+```
+If you get a `curl: (7) Failed connect to localhost:5050; Connection
+refused` then just run the server command above one more time, your
+server is no longer listening on the port.
+
+You should see something like:
+
+```
+HTTP/1.1 200 OK
+Date: Thu, 29 Jan 2015 01:58:46 GMT
+Server: Apache
+Last-Modified: Sun, 18 Jan 2015 00:04:33 GMT
+Accept-Ranges: bytes
+Content-Length: 5108
+Vary: Accept-Encoding
+Content-Type: text/html
+```
+
+The `curl` command is totally convinced that you're a webserver. You.
+You just hand-wrote it using HTML stolen from some other website and a
+ridiculously simple piece of server logic (only ever send the same
+response always).
 
 
 Challenges:
