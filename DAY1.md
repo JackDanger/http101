@@ -29,43 +29,81 @@ etc.) allows programs to act as HTTP servers and clients.
 First, we're going to try to connect to a computer on a specific port
 number.
 
+Run this in one terminal window:
 ```
-nc motherfuckingwebsite.com 80
-GET / HTTP/1.1
-Host: motherfuckingwebsite.com
-
+nc -l localhost 5050
 ```
 
-What just happened?
+And then run this in a second window:
+```
+nc localhost 5050
+```
 
-The program `nc` (an abbreviation of "netcat" or "network concatenate")
-connected to the computer known as motherfuckingwebsite.com on port 80.
-Then it wrote two lines of plain text into that connection. Luckily,
-there was a web server program listening on that port that knew how to
-speak HTTP and it properly understood our request.
+Type "hi" into that second window. Notice that what you type is sent
+to "localhost" (your computer) right into the port that you're listening
+on in the first window.
 
+Anything you type will keep being sent over the network from the client
+(the second window that you're typing into) to the server (the first
+window where your program is listening on the port).
 
+Let's try doing that again but lets send over some data that's been
+prepared in advance. CTRL-C both of your `nc` instances and type the
+following to create a new text file:
+
+```
+cat > badjoke
+Deja Moo: The feeling that you've heard this bull before.
+```
+When you're done don't type `CTRL-C`, type `CTRL-D` instead. That's the
+Unix way of sending a character that says "I'm all done now!" It's a
+great way to exit your terminals or signal you're finished typing
+without necessarily trying to kill a program.
+
+Now that we have that file with a line of plaintext in it let's send it
+over the network from one terminal to another.
+
+In one terminal set up the server with `nc -l localhost 5050` just like
+before.
+
+And in the other window make sure the file has some data in it:
+
+```
+cat badjoke
+```
+
+Yup. That's a bad joke. Now let's "concatenate" it via netcat (`nc`) over
+the network:
+
+```
+cat badjoke | nc localhost 5050
+```
+
+Notice that vertical pipe character? That means instead of printing the
+output of the previous command on the screen use it as if it were typed
+as the input of the next command. Basically you just avoided having to
+hand-type the joke any time you want to send it somewhere.
 
 Challenges:
+
 1. Make `nc` continue listening on a port even after you've connected to
    it and subsequently disconnected from it. (hint: you can run any
 program in an infinite loop via `while true; do my_command; done`
 1. Try to listen to port 400 on your local machine? What happens? What's
    the port number where you start getting a different response?
-1. Try to listen to the same port with two programs at the same time.
-   What happens?
 1. Listen on a port in such a way that all of the data sent to that port
    gets redirected to a file. (hint: you're going to need to do the
 normal listen command and then use the '>' character afterward for
 sending the programs "standard output" to a file.)
-1. Connect to a port that you're listening on and send the contents of a file into that port. Try to get those file contents to display in the terminal that is listening on that port.
+1. Depending on the networking setup where you are see if you can listen
+   as a server on one computer and connect as a client from another.
 
 # HTTP requests and responses
 
 ### Be an HTTP client
 
 First, let's be an HTTP client. We're going to retrieve
-[http://motherfuckingwebsite.com] and display its contents to our
+[http://motherfuckingwebsite.com](http://motherfuckingwebsite.com) and display its contents to our
 screen. We're basically going to turn ourselves into a really, really
 user-unfriendly web browser. Type the following into your terminal:
 
@@ -77,13 +115,45 @@ Host: motherfuckingwebsite.com
 ```
 
 Hit enter a couple times at the end if nothing happens. What you see
-should be the HTML source of [http://motherfuckingwebsite.com].
+should be the HTML source of
+[http://motherfuckingwebsite.com](http://motherfuckingwebsite.com)
 
 What you just did is all that a web browser does, though browsers also
 do the work of rendering the HTML properly on your screen. Had you
 copied the HTML that the server sent you into a file and opened it in a
 modern document editor it would render to your screen just like in a
 browser.
+
+### Be a bad HTTP client
+
+Let's do that again but send some gibberish.
+
+```
+nc motherfuckingwebsite.com 80
+GET / I DUNNO
+stuff, man
+
+```
+
+You should see a response that looks something like the following:
+
+```
+HTTP/1.1 400 Bad Request
+Date: Thu, 29 Jan 2015 01:34:08 GMT
+[...]
+<h1>Bad Request</h1>
+<p>Your browser sent a request that this server could not understand.<br
+/>
+Request header field is missing ':' separator.<br />
+<pre>
+stuff, man</pre>
+```
+
+The HTTP server (whatever program was listening on the other side) knows
+how to look at the lines you're typing and parse out good requests from
+bad. Netcat, the simple little tool that it is, when it acts as a server
+using the `-l` flag doesn't bother parsing anything - it just spits
+whatever right out onto the screen.
 
 
 Challenges:
