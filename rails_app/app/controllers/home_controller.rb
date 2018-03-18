@@ -1,14 +1,14 @@
 class HomeController < ApplicationController
 
-  skip_before_filter :verify_authenticity_token
+  skip_before_action :verify_authenticity_token
 
   def gerbils
     binding.pry
-    render :text => 'Gerbils!'
+    render plain: 'Gerbils!', status: :ok
   end
 
   def penguins
     binding.pry
-    render :text => 'Penguins!'
+    render plain: 'Penguins!', status: :ok
   end
 end
