@@ -1,0 +1,19 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    rack (2.0.4)
+    shotgun (0.9.2)
+      rack (>= 1.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  rack
+  shotgun
+
+RUBY VERSION
+   ruby 2.5.0p0
+
+BUNDLED WITH
+   1.16.1
